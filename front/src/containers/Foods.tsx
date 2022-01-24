@@ -1,5 +1,18 @@
 import React from 'react';
 
-export const Foods: React.VFC = () => {
-  return <>フード一覧</>;
+type Props = {
+  match: {
+    params: {
+      restaurantsId: string;
+    };
+  };
+};
+
+export const Foods: React.VFC<Props> = ({ match }) => {
+  return (
+    <>
+      フード一覧
+      <p>restaurantsIdは {match.params.restaurantsId} です</p>
+    </>
+  );
 };
