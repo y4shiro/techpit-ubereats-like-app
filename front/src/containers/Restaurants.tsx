@@ -1,7 +1,5 @@
 import React from 'react';
 
-const Restaurants: React.VFC = () => {
+export const Restaurants: React.VFC = () => {
   return <>レストラン一覧</>;
 };
-
-export default Restaurants;
