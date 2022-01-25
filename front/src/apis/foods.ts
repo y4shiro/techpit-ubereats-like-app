@@ -1,4 +1,3 @@
-import { restaurantsIndex } from './../urls/index';
 import axios from 'axios';
 import { foodsIndex } from '../urls';
 
