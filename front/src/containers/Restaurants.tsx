@@ -1,7 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useReducer } from 'react';
 import styled from 'styled-components';
 
 import { fetchRestaurants } from '../apis/restaurants';
+
+import {
+  initialState,
+  restaurantsActionTypes,
+  restaurantsReducer,
+} from '../reducers/restaurants';
 
 import MainLogo from '../images/logo.png';
 import MainCoverImage from '../images/main-cover-image.png';
@@ -25,8 +31,18 @@ const MainCover = styled.img`
 `;
 
 export const Restaurants: React.VFC = () => {
+  const [state, dispatch] = useReducer(restaurantsReducer, initialState);
+
   useEffect(() => {
-    fetchRestaurants().then((data) => console.log(data));
+    dispatch({ type: restaurantsActionTypes.FETCHING });
+    fetchRestaurants().then((data) =>
+      dispatch({
+        type: restaurantsActionTypes.FETCH_SUCCESS,
+        payload: {
+          restaurants: data.restaurants,
+        },
+      })
+    );
   }, []);
 
   return (
@@ -37,6 +53,9 @@ export const Restaurants: React.VFC = () => {
       <MainCoverImageWrapper>
         <MainCover src={MainCoverImage} alt="main cover" />
       </MainCoverImageWrapper>
+      {state.restaurantsList.map((restaurant: any) => (
+        <div key={restaurant.id}>{restaurant.name}</div>
+      ))}
     </>
   );
 };
