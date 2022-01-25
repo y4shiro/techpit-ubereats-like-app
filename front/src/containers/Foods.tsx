@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { fetchFoods } from '../apis/foods';
 
 type Props = {
   match: {
@@ -9,6 +10,10 @@ type Props = {
 };
 
 export const Foods: React.VFC<Props> = ({ match }) => {
+  useEffect(() => {
+    fetchFoods(match.params.restaurantsId).then((data) => console.log(data));
+  }, []);
+
   return (
     <>
       フード一覧
